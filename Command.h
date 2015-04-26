@@ -1,0 +1,17 @@
+class Command
+{
+
+
+	public:
+
+
+
+
+
+	private:
+
+
+
+
+
+}
