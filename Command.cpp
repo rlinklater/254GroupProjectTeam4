@@ -26,7 +26,7 @@ string Command::getRec_Ctrl()
 	}
 }
 
-int Command::getCmd_Type()
+string Command::getCmd_Type()
 {
 	int bitValue = Data[1].getBits(13, 15);
 	switch (bitValue)
