@@ -3,8 +3,6 @@
 #include <vector>
 #include "Command.h"
 
-using namespace std;
-
 Command::Command()
 {
 	Data = {};	// populate Data vector
@@ -15,7 +13,7 @@ Command::~Command() {}
 
 
 
-string Command::getRec_Ctrl()
+std::string Command::getRec_Ctrl()
 {
 	int bitValue = Data[0].getBits(13, 14);
 	switch (bitValue)
@@ -26,7 +24,7 @@ string Command::getRec_Ctrl()
 	}
 }
 
-string Command::getCmd_Type()
+std::string Command::getCmd_Type()
 {
 	int bitValue = Data[1].getBits(13, 15);
 	switch (bitValue)
@@ -36,7 +34,7 @@ string Command::getCmd_Type()
 		case 6: return "Type C";
 	}
 }
-string Command::getRec_Raw()
+std::string Command::getRec_Raw()
 {
 	int bitValue = Data[4].getBits(0);
 	switch (bitValue)
@@ -58,7 +56,7 @@ int Command::getNum_Responses()
 	return Data[10].getBits(11,15);
 }
 
-string Command::getReset_Enable()
+std::string Command::getReset_Enable()
 {
 	int bitValue = Data[15].getBits(2);
 	switch (bitValue)
@@ -69,7 +67,7 @@ string Command::getReset_Enable()
 	}
 }
 
-string Command::getDirection()
+std::string Command::getDirection()
 {
 	int bitValue = Data[22].getBits(3);
 	switch (bitValue)
@@ -85,7 +83,7 @@ int Command::getNum_Samples()
 	return Data[32].getBits(0,14);
 }
 
-string Command::getParity()
+std::string Command::getParity()
 {
 	int bitValue = Data[37].getBits(15);
 	switch (bitValue)
@@ -96,7 +94,7 @@ string Command::getParity()
 	}
 }
 
-string Command::getTest()
+std::string Command::getTest()
 {
 	int bitValue = Data[38].getBits(14);
 	switch (bitValue)
@@ -107,7 +105,7 @@ string Command::getTest()
 	}
 }
 
-string Command::getCtrl_Enable()
+std::string Command::getCtrl_Enable()
 {
 	int bitValue = Data[40].getBits(7);
 	switch (bitValue)
