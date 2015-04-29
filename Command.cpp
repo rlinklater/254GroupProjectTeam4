@@ -28,56 +28,98 @@ string Command::getRec_Ctrl()
 
 int Command::getCmd_Type()
 {
-	// to be filled...
+	int bitValue = Data[1].getBits(13, 15);
+	switch (bitValue)
+	{
+		case 4: return "Type A";
+		case 5: return "Type B";
+		case 6: return "Type C";
+	}
 }
-
-bool Command::getRec_Raw()
+string Command::getRec_Raw()
 {
-	// to be filled...
+	int bitValue = Data[4].getBits(0);
+	switch (bitValue)
+	{
+		case 0: return "Disable";
+		case 1: return "Enable";
+		
+	}
 }
 
 int Command::getCmd_ID()
 {
-	// to be filled...
+	return Data[5].getBits(0,6);
+	
 }
 
 int Command::getNum_Responses()
 {
-	// to be filled...
+	return Data[10].getBits(11,15);
 }
 
-bool Command::getReset_Enable()
+string Command::getReset_Enable()
 {
-	// to be filled...
+	int bitValue = Data[15].getBits(2);
+	switch (bitValue)
+	{
+		case 0: return "Disable";
+		case 1: return "Enable";
+		
+	}
 }
 
-bool Command::getDirection()
+string Command::getDirection()
 {
-	// to be filled...
+	int bitValue = Data[22].getBits(3);
+	switch (bitValue)
+	{
+		case 0: return "Right";
+		case 1: return "Left";
+		
+	}
 }
 
 int Command::getNum_Samples()
 {
-	// to be filled...
+	return Data[32].getBits(0,14);
 }
 
-bool Command::getParity()
+string Command::getParity()
 {
-	// to be filled...
+	int bitValue = Data[37].getBits(15);
+	switch (bitValue)
+	{
+		case 0: return "Even";
+		case 1: return "Odd";
+		
+	}
 }
 
-bool Command::getTest()
+string Command::getTest()
 {
-	// to be filled...
+	int bitValue = Data[38].getBits(14);
+	switch (bitValue)
+	{
+		case 0: return "Disable";
+		case 1: return "Enable";
+		
+	}
 }
 
-bool Command::getCtrl_Enable()
+string Command::getCtrl_Enable()
 {
-	// to be filled...
+	int bitValue = Data[40].getBits(7);
+	switch (bitValue)
+	{
+		case 0: return "Disable";
+		case 1: return "Enable";
+		
+	}
 }
 
 int Command::getCode()
 {
-	// to be filled...
+	return Data[41].getBits(8,14);
 }
 
