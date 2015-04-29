@@ -1,3 +1,5 @@
+#ifndef hexStringClass
+#define hexStringClass
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -109,3 +111,5 @@ class hexString{
 		void setHexValue();
 		int getBit(int WhichBit, char HexChar);
 };
+
+#endif

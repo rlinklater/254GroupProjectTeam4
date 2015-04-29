@@ -1,3 +1,5 @@
+#ifndef CommandClass
+#define CommandClass
 #include <string>
 #include <vector>
 #include "hexString.h"
@@ -34,3 +36,5 @@ class Command
 
 
 };
+
+#endif
