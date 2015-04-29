@@ -7,7 +7,9 @@
 using namespace std;
 
 
-string dataline(string s);
+string dataline(string s);//takes the string from the data column
+string addressline(string s);//takes the string from the address column
+string rwline(string s);
 
 int main()
 {//grabs "log.txt" from the current directory
@@ -47,23 +49,20 @@ int main()
 		getline(opener, line);
 		hexString address = "";
 		string bin = "";
-		for (int i = 82; i < 90; i++)
-		{
-			address+=line[i];
-		}
+		address=addressline(line);
 		counter++;
+		data=dataline(line);
 		
-		if(address<=stodlow && address>=stodhigh && sord==1)
+		if(address<=stodlow && address>=stodhigh && sord==1) //s-to-d instructions
 		{
-		   
+		   //send address, data and counter
 		}
-		else if(address<=dtoslow && address>=dtoshigh && sord==2)
+		else if(address<=dtoslow && address>=dtoshigh && sord==2) //d-to-s instructions
 		{
-		  
+		  //send address, data and counter
 		}
 		else if (address == stod || address == dtos) // finds initial line
 		{
-			cout << counter << ":    ";
 			for (int i = 99; i < 107; i++)  //grabs address based on string index
 			{
 				data += line[i];
@@ -87,7 +86,6 @@ int main()
 		}
 		else
 			sord=0;
-		//cout << ARRAY_SIZE(line) << endl << line << endl; // used to get the size of the array (probably delete it later
 	}
 
 	cout << "THE END" << endl; // just to show program completion
@@ -100,6 +98,24 @@ string dataline(string s)
 {
   string x="";
  for (int i = 99; i < 107; i++)  //grabs address based on string index
+  {
+    x += s[i];
+  } 
+  return x;
+}
+string addressline(string s)
+{
+	string x="";
+	for (int i = 82; i < 90; i++)
+		{
+			x+=line[i];
+		}
+	return x;
+}
+string rwline(string s)
+{
+  string x="";
+ for (int i = 110; i < 118; i++)  //grabs address based on string index
   {
     x += s[i];
   } 
