@@ -108,7 +108,7 @@ string addressline(string s)
 	string x="";
 	for (int i = 82; i < 90; i++)
 		{
-			x+=line[i];
+			x+=s[i];
 		}
 	return x;
 }
