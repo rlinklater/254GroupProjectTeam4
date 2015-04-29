@@ -10,7 +10,7 @@ class Command
 		Command();
 		~Command();
 		std::string getRec_Ctrl();
-		int getCmd_Type();
+		std::string getCmd_Type();
 		std::string getRec_Raw();
 		int getCmd_ID();
 		int getNum_Responses();
