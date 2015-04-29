@@ -2,13 +2,12 @@
 #include <string>
 #include <fstream>
 #include <cctype>
-#include <stack>
-#include <sstream>
-#include <bitset>
+#include "hexString.h"
+#include "Command.h"
 using namespace std;
-#define ARRAY_SIZE(array) (sizeof((array))/sizeof((array[0])))
 
 
+string dataline(string s);
 
 int main()
 {//grabs "log.txt" from the current directory
@@ -27,50 +26,82 @@ int main()
 
 	string line;
 	int counter = 0;
-	unsigned int x;
+	hexString data;  //takes data from data column
+	hexString stod;  // initializer for s-to-d
+	hexString stodlow; //word 0 and 1 of instructions  s-to-d
+	hexString stodhigh;
+	hexString dtos;   //initializer for d-to-s
+	hexString dtoslow; //word 0 to 1 of instructions for d-to-s
+	hexString dtoshigh;
+
+	stod="40000810";  // initializer for s-to-d
+	stodlow= "40000818"; //word 0 and 1 of instructions  s-to-d
+	dtos="40000C10";   //initializer for d-to-s
+	dtoslow= "40000C18"; //word 0 to 1 of instructions for d-to-s
+
+
+	int sord=0;
+
 	while (!opener.eof()&& counter!=30004)  // had to add the counter bool because .eof wasn't working
 	{//81-88
 		getline(opener, line);
-		string address = "";
-		string data = "";
+		hexString address = "";
 		string bin = "";
 		for (int i = 82; i < 90; i++)
 		{
 			address+=line[i];
 		}
-		//cout << address << endl;
-		//1073743896   //int number for first address
-		//1073744920  // int number for first address of second case
 		counter++;
-		if (address == "40000810" || address == "40000C18") // finds initial line
+		
+		if(address<=stodlow && address>=stodhigh && sord==1)
+		{
+		   
+		}
+		else if(address<=dtoslow && address>=dtoshigh && sord==2)
+		{
+		  
+		}
+		else if (address == stod || address == dtos) // finds initial line
 		{
 			cout << counter << ":    ";
 			for (int i = 99; i < 107; i++)  //grabs address based on string index
 			{
 				data += line[i];
 			}
-			std::stringstream ss;
-			ss << hex << data;   //converting hex to int
-			ss >> x;
-			x = static_cast<int>(x);
-			if (address == "40000810")
+			
+			if (address == stodlow)
 			{
-				x += 1073743896; // adding data to initial address to determine last address
+				data += stodlow; // adding data to initial address to determine last address
+				stodhigh=data;
+				data="";
+				sord=1;
 			}
-			else if (address == "40000C18")
+			else if (address == dtoslow)
 			{
-				x += 1073744920;      //same as above
+				data += dtoslow;      //same as above
+				dtoshigh=data;
+				data="";
+				sord=2;
 			}
-			cout <<data;
-			ss << hex << x;   //converting int to hex (not working)
-			string result(ss.str());
-			cout <<"  "<< result << endl;
-			//bitset< sizeof(x)*CHAR_BIT > bits(x);
-			//bin= bits.to_string();     //converts int to binary
+
 		}
+		else
+			sord=0;
 		//cout << ARRAY_SIZE(line) << endl << line << endl; // used to get the size of the array (probably delete it later
 	}
 
 	cout << "THE END" << endl; // just to show program completion
 	return 0;
+}
+
+
+
+string dataline(string s)
+{
+  string x="";
+ for (int i = 99; i < 107; i++)  //grabs address based on string index
+  {
+    x += s[i];
+  } 
+  return x;
 }
