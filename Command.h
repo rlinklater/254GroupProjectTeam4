@@ -11,15 +11,15 @@ class Command
 		~Command();
 		std::string getRec_Ctrl();
 		int getCmd_Type();
-		string getRec_Raw();
+		std::string getRec_Raw();
 		int getCmd_ID();
 		int getNum_Responses();
-		string getReset_Enable();
-		string getDirection();
+		std::string getReset_Enable();
+		std::string getDirection();
 		int getNum_Samples();
-		string getParity();
-		string getTest();
-		string getCtrl_Enable();
+		std::string getParity();
+		std::string getTest();
+		std::string getCtrl_Enable();
 		int getCode();
 
 
