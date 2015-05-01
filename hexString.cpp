@@ -108,6 +108,8 @@ unsigned long long int hexString::toInt(){
 	return intValue;
 }
 
+std::string hexString::toString(){return hexValue;}
+
 int hexString::hexToInt(char Hex){
 	std::string Numerals = "0123456789ABCDEF";
 	for (int i = 0; i < 16; i++){

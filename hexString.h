@@ -80,6 +80,7 @@ class hexString{
 		int getBits(int Bit);
 		int getBits(int Bit1, int Bit2);
 		unsigned long long int toInt();
+		std::string toString();
 		
 		void operator = (const hexString& Right);
 		void operator = (const unsigned long long int Right);
