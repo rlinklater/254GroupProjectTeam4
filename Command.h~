@@ -11,9 +11,8 @@ class Command
 
 
 	public:
-		Command();
+		Command(int Line, WhichCommand Type, hexString LineCount);
 		~Command();
-		void AddFirstLine(int Line, WhichCommand Type, hexString LineCount);
 		void AddData(int Line, std::string CommandData, hexString Address);
 		std::string FetchNextCommand();
 		std::string PrintAllCommands();

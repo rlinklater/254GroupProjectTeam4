@@ -3,9 +3,7 @@
 #include <vector>
 #include "Command.h"
 
-Command::Command(){}
-	
-Command::AddFirstLine(int Line, WhichCommand Type, hexString LineCount){
+Command::Command(int Line, WhichCommand Type, hexString LineCount){
 	SDBaseAddress = "40000818";
 	DSBaseAddress = "40000C20";
 	std::string ThisLine;
