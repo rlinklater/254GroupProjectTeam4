@@ -88,9 +88,9 @@ std::string Command::getRec_Ctrl()
 	int bitValue = Data[0].getBits(13, 14);
 	switch (bitValue)
 	{
-		case 0: return "No recording";
-		case 2: return "No processing";
-		case 3: return "Processing and recording";
+		case 0: return "0 (no recording)";
+		case 2: return "2 (no processing)";
+		case 3: return "3 (processing and recording)";
 	}
 }
 
@@ -99,9 +99,9 @@ std::string Command::getCmd_Type()
 	int bitValue = Data[1].getBits(13, 15);
 	switch (bitValue)
 	{
-		case 4: return "Type A";
-		case 5: return "Type B";
-		case 6: return "Type C";
+		case 4: return "4 (Type A)";
+		case 5: return "5 (Type B)";
+		case 6: return "6 (Type C)";
 	}
 }
 std::string Command::getRec_Raw()
@@ -109,8 +109,8 @@ std::string Command::getRec_Raw()
 	int bitValue = Data[4].getBits(0);
 	switch (bitValue)
 	{
-		case 0: return "Disable";
-		case 1: return "Enable";
+		case 0: return "0 (disable)";
+		case 1: return "1 (enable)";
 		
 	}
 }
@@ -131,8 +131,8 @@ std::string Command::getReset_Enable()
 	int bitValue = Data[15].getBits(2);
 	switch (bitValue)
 	{
-		case 0: return "Disable";
-		case 1: return "Enable";
+		case 0: return "0 (disable)";
+		case 1: return "1 (enable)";
 		
 	}
 }
@@ -142,8 +142,8 @@ std::string Command::getDirection()
 	int bitValue = Data[22].getBits(3);
 	switch (bitValue)
 	{
-		case 0: return "Right";
-		case 1: return "Left";
+		case 0: return "0 (Right)";
+		case 1: return "1 (Left)";
 		
 	}
 }
@@ -158,8 +158,8 @@ std::string Command::getParity()
 	int bitValue = Data[37].getBits(15);
 	switch (bitValue)
 	{
-		case 0: return "Even";
-		case 1: return "Odd";
+		case 0: return "0 (even)";
+		case 1: return "1 (odd)";
 		
 	}
 }
@@ -169,8 +169,8 @@ std::string Command::getTest()
 	int bitValue = Data[38].getBits(14);
 	switch (bitValue)
 	{
-		case 0: return "Disable";
-		case 1: return "Enable";
+		case 0: return "0 (disable)";
+		case 1: return "1 (enable)";
 		
 	}
 }
@@ -180,8 +180,8 @@ std::string Command::getCtrl_Enable()
 	int bitValue = Data[40].getBits(7);
 	switch (bitValue)
 	{
-		case 0: return "Disable";
-		case 1: return "Enable";
+		case 0: return "0 (disable)";
+		case 1: return "1 (enable)";
 		
 	}
 }
