@@ -48,7 +48,7 @@ void Command::ResetPrintPosition(){PrintCounter = 0;}
 
 void Command::AddPrintLine(int Line, int Position){
 	std::string ThisLine;
-	ThisLine = "Line " + std::to_string(Line) + ": Word ";
+	ThisLine = "Line " + Line + ": Word ";
 	ThisLine += std::to_string(Position);
 	ThisLine += ": ";
 	switch (Position){
@@ -79,7 +79,7 @@ std::string Command::FetchNextCommand(){
 
 std::string Command::PrintAllCommands(){
 	for (int i = 0; i < CommandsProcessed.size(); i++){
-		std::cout << CommandsProcessed[i] << std::endl;
+		cout << CommandsProcessed[i] << endl;
 	}	
 }
 
