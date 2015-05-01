@@ -3,9 +3,13 @@
 #include <vector>
 #include "Command.h"
 
-Command::Command(){}
+Command::Command(){
+	for (int i = 0; i < 45; i++){
+		Data[i] = (unsigned long long int) 0;
+	}
+}
 	
-Command::AddFirstLine(int Line, WhichCommand Type, hexString LineCount){
+void Command::AddFirstLine(int Line, WhichCommand Type, hexString LineCount){
 	SDBaseAddress = "40000818";
 	DSBaseAddress = "40000C20";
 	std::string ThisLine;
@@ -36,10 +40,13 @@ void Command::AddData(int Line, std::string CommandData, hexString Address){
 	std::string Command1 = CommandData.substr(0,4);
 	std::string Command2 = CommandData.substr(4,4);
 	Data[Position1] = Command1;
+	std::cout<<Data[Position1]<<std::flush;
 	Data[Position2] = Command2;
 	
 	AddPrintLine(Line, Position1);
-	AddPrintLine(Line, Position2);	
+	std::cout<<Line<<Position1<<"\n\n\n\n"<<std::flush;
+	AddPrintLine(Line, Position2);
+	std::cout<<Line<<Position1<<"\n\n\n\n"<<std::flush;	
 }
 
 bool Command::MoreCommands(){
@@ -57,15 +64,15 @@ void Command::AddPrintLine(int Line, int Position){
 		case 0 : ThisLine += "Rec_Ctrl = " + getRec_Ctrl();
 		case 1 : ThisLine += "Cmd_Type = " + getCmd_Type();
 		case 4 : ThisLine += "Rec_Raw = " + getRec_Raw();
-		case 5 : ThisLine += "Cmd_ID = " + getCmd_ID();
-		case 10 : ThisLine += "Num_Responses = " + getNum_Responses();
+		case 5 : ThisLine += "Cmd_ID = " + std::to_string(getCmd_ID());
+		case 10 : ThisLine += "Num_Responses = " + std::to_string(getNum_Responses());
 		case 15 : ThisLine += "Reset_Enable = " + getReset_Enable();
 		case 22 : ThisLine += "Direction = " + getDirection();
-		case 32 : ThisLine += "Num_Samples = " + getNum_Samples();
+		case 32 : ThisLine += "Num_Samples = " + std::to_string(getNum_Samples());
 		case 37 : ThisLine += "Parity = " + getParity();
 		case 38 : ThisLine += "Test = " + getTest();
 		case 40 : ThisLine += "Ctrl_Enable = " + getCtrl_Enable();
-		case 41 : ThisLine += "Code = " + getCode();
+		case 41 : ThisLine += "Code = " + std::to_string(getCode());
 	}
 	
 }

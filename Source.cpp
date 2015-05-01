@@ -34,10 +34,10 @@ int main()
 	hexString data;  //takes data from data column
 	hexString stod;  // initializer for s-to-d
 	hexString stodlow; //word 0 and 1 of instructions  s-to-d
-	hexString stodhigh;
+	hexString stodhigh="0";
 	hexString dtos;   //initializer for d-to-s
 	hexString dtoslow; //word 0 to 1 of instructions for d-to-s
-	hexString dtoshigh;
+	hexString dtoshigh="0";
 	hexString address;
 	stod="40000810";  // initializer for s-to-d
 	stodlow= "40000818"; //word 0 and 1 of instructions  s-to-d
@@ -47,6 +47,7 @@ int main()
 
 	while (getline(opener, line))  // had to add the counter bool because .eof wasn't working
 	{//81-88
+		
 		address=addressline(line);
 		counter++;
 		data=dataline(line);
@@ -74,6 +75,7 @@ int main()
 			data="";
 
 		}
+cout<<counter<<line<<flush;
 	}
 
 	cout << "THE END" << endl; // just to show program completion
