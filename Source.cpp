@@ -7,13 +7,13 @@
 using namespace std;
 
 
-string dataline(string s);//takes the string from the data column
-string addressline(string s);//takes the string from the address column
+hexString dataline(string s);//takes the string from the data column
+hexString addressline(string s);//takes the string from the address column
 string rwline(string s);
 
 int main()
 {//grabs "log.txt" from the current directory
-	string filename="log.txt";
+	string filename="test_data.log";
 	//cout << "Enter file name:";    //these were to enter file name, commented out for testing convienience
 	//getline(cin, filename);
 	//cout << endl<<filename<<endl;
@@ -28,6 +28,9 @@ int main()
 
 	string line;
 	int counter = 0;
+
+	Command cmd;
+
 	hexString data;  //takes data from data column
 	hexString stod;  // initializer for s-to-d
 	hexString stodlow; //word 0 and 1 of instructions  s-to-d
@@ -35,57 +38,42 @@ int main()
 	hexString dtos;   //initializer for d-to-s
 	hexString dtoslow; //word 0 to 1 of instructions for d-to-s
 	hexString dtoshigh;
-
+	hexString address;
 	stod="40000810";  // initializer for s-to-d
 	stodlow= "40000818"; //word 0 and 1 of instructions  s-to-d
-	dtos="40000C10";   //initializer for d-to-s
-	dtoslow= "40000C18"; //word 0 to 1 of instructions for d-to-s
+	dtos="40000C18";   //initializer for d-to-s
+	dtoslow= "40000C20"; //word 0 to 1 of instructions for d-to-s
 
 
-	int sord=0;
-
-	while (!opener.eof()&& counter!=30004)  // had to add the counter bool because .eof wasn't working
+	while (getline(opener, line))  // had to add the counter bool because .eof wasn't working
 	{//81-88
-		getline(opener, line);
-		hexString address = "";
-		string bin = "";
 		address=addressline(line);
 		counter++;
 		data=dataline(line);
-		
-		if(address<=stodlow && address>=stodhigh && sord==1) //s-to-d instructions
+		if(address>=stodlow && address<=stodhigh) //s-to-d instructions
 		{
-		   //send address, data and counter
+			cmd.AddData(counter,data.toString(),address);
 		}
-		else if(address<=dtoslow && address>=dtoshigh && sord==2) //d-to-s instructions
+		else if(address>=dtoslow && address<=dtoshigh) //d-to-s instructions
 		{
-		  //send address, data and counter
+			cmd.AddData(counter,data.toString(),address);
 		}
-		else if (address == stod || address == dtos) // finds initial line
+		if (address == stod)
 		{
-			for (int i = 99; i < 107; i++)  //grabs address based on string index
-			{
-				data += line[i];
-			}
-			
-			if (address == stodlow)
-			{
-				data += stodlow; // adding data to initial address to determine last address
-				stodhigh=data;
-				data="";
-				sord=1;
-			}
-			else if (address == dtoslow)
-			{
-				data += dtoslow;      //same as above
-				dtoshigh=data;
-				data="";
-				sord=2;
-			}
+			cmd.AddFirstLine(counter, SDRead, data);
+			data += stodlow; // adding data to initial address to determine last address
+			stodhigh=data;
+			data="";
 
 		}
-		else
-			sord=0;
+		else if (address == dtos)
+		{
+			cmd.AddFirstLine(counter, DSRead, data);
+			data += dtoslow;      //same as above
+			dtoshigh=data;
+			data="";
+
+		}
 	}
 
 	cout << "THE END" << endl; // just to show program completion
@@ -94,7 +82,7 @@ int main()
 
 
 
-string dataline(string s)
+hexString dataline(string s)
 {
   string x="";
  for (int i = 99; i < 107; i++)  //grabs address based on string index
@@ -103,7 +91,7 @@ string dataline(string s)
   } 
   return x;
 }
-string addressline(string s)
+hexString addressline(string s)
 {
 	string x="";
 	for (int i = 82; i < 90; i++)
@@ -112,12 +100,4 @@ string addressline(string s)
 		}
 	return x;
 }
-string rwline(string s)
-{
-  string x="";
- for (int i = 110; i < 118; i++)  //grabs address based on string index
-  {
-    x += s[i];
-  } 
-  return x;
-}
+string rwline(string s){return s.substr(119,2);}
