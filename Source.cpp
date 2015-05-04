@@ -126,7 +126,7 @@ double ReadTime(string s){
 	int i = 26;
 	char strTime = s[26];
 	while (s[i] != ' '){i--;}
-	RetVal = stod(s.substr(i,25-i));
+	RetVal = stod(s.substr(i,(25-i)+1));
 	if (strTime == 'm'){RetVal *= 1000000;}
 	if (strTime == 'u'){RetVal *= 1000;}
 	return RetVal;
