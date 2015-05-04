@@ -9,6 +9,7 @@ hexString::hexString(){
 }
 
 hexString::hexString(const std::string newHexString){
+	//Constructor from a string value.
 	std::string temp = "";
 	
 	//strip out any illegal characters and whitespace
@@ -28,11 +29,13 @@ hexString::hexString(const std::string newHexString){
 }
 
 hexString::hexString(const hexString& newHexString){
+	//Constructor from another hexString
 	hexValue = newHexString.hexValue;
 	intValue = newHexString.intValue;
 }
 
 hexString::hexString(const char newHexChar[]){
+	//Constructor from a string literal
 	std::string temp = "";
 	std::string newHexString(newHexChar);
 	
@@ -53,25 +56,30 @@ hexString::hexString(const char newHexChar[]){
 }
 
 bool hexString::isLegalChar(char testChar){
+	//Determines if character is a hex character.
 	if (testChar > 47 && testChar < 58) {return true;}  //ASCII 0-9
 	if (testChar > 64 && testChar < 71) {return true;}  //ASCII A-F
 	return false;
 }
 
 hexString::hexString(unsigned long long int newHexString){
+	//Constructor from an int value.
 	intValue = newHexString;
 	setHexValue();
 }
 
 hexString::~hexString(){
-
+	//Empty destructor.
 }
 
 int hexString::getBits(int bit){
-	return getBit((bit % 4), hexValue[int(bit/4)]);
+	//One version of the getBits function, for a single bit.
+	return getBit((bit % 4), hexValue[3 - (bit/4)]);
 }
 
 int hexString::getBit(int whichBit, char hexChar){
+	//Internal function to set the value of bits mathematically.
+	//Returns the requested bit.
 	int value = hexToInt(hexChar);
 	int bit[4] = {0,0,0,0};
 	if (value > 7){bit[3] = 1; value -= 8;}
@@ -82,8 +90,11 @@ int hexString::getBit(int whichBit, char hexChar){
 }
 
 int hexString::getBits(int Bit1, int Bit2){
+	//The other version of the getBits function, for multiple bits.
 	int highBit, lowBit;
 	
+	//Order doesn't matter, this function determines which bit is higher and
+	//responds properly.
 	if (Bit1 > Bit2){
 		highBit = Bit1;
 		lowBit = Bit2;
@@ -97,6 +108,7 @@ int hexString::getBits(int Bit1, int Bit2){
 	int l = hexValue.length()-1;
 	int retVal = 0;
 	
+	//Extract bits mathematically.
 	for (int i = 0; i <= j; i++){
 		retVal += (getBit(((lowBit+i) % 4), hexValue[l-((lowBit+i)/4)]) * pow);
 		pow *= 2;
@@ -105,12 +117,15 @@ int hexString::getBits(int Bit1, int Bit2){
 }
 
 unsigned long long int hexString::toInt(){
+	//Accessor for int value of teh hexString.
 	return intValue;
 }
 
+//Accessor for string value of the hexString.
 std::string hexString::toString(){return hexValue;}
 
 int hexString::hexToInt(char Hex){
+	//Internal function to get the int value of a hex character.
 	std::string Numerals = "0123456789ABCDEF";
 	for (int i = 0; i < 16; i++){
 		if (Numerals[i] == Hex) {return i;}
@@ -119,23 +134,25 @@ int hexString::hexToInt(char Hex){
 }
 
 char hexString::intToHex(int Int){
+	//Internal function to get the hex value of an int character.
 	std::string Numerals = "0123456789ABCDEF";
 	if (Int < 0 || Int > 16) {return -1;}
 	return Numerals[Int];
 }
 
 void hexString::setIntValue(){
+	//Internal function.  Convert hex to int using non-recursive method.
 	unsigned long long int pow = 1;
 	intValue = 0;
 	
 	for (int i = hexValue.length(); i > 0; i--) {
 		intValue += pow * hexToInt(hexValue[i-1]);
-		//std::cout << (i-1) << "   -   " << hexValue[i-1] << "   -   " << hexToInt(hexValue[i-1]) << "   -   " << pow  << "   -   " << intValue << "\n";
 		pow *= 16;
 	}	
 }
 
 void hexString::setHexValue(){
+	//Internal function. Convert int to hex using non-recursive method.
 	unsigned long long int tempInt = intValue;
 	hexValue = "";
 	
@@ -145,6 +162,8 @@ void hexString::setHexValue(){
 	}
 	hexValue = intToHex(tempInt) + hexValue;	
 } 
+
+//Operator overloads follow.  All operators are designed to be used with any combination of hexString, int, string, and char (for string literals)
 
 void hexString::operator = (const hexString& Right){
 	hexValue = Right.hexValue;

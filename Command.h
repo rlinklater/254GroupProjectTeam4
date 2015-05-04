@@ -19,18 +19,19 @@ class Command
 		std::string PrintAllCommands();
 		bool MoreCommands();
 		void ResetPrintPosition();
+		void Reset();
 		std::string getRec_Ctrl();
 		std::string getCmd_Type();
 		std::string getRec_Raw();
-		int getCmd_ID();
-		int getNum_Responses();
+		std::string getCmd_ID();
+		std::string getNum_Responses();
 		std::string getReset_Enable();
 		std::string getDirection();
-		int getNum_Samples();
+		std::string getNum_Samples();
 		std::string getParity();
 		std::string getTest();
 		std::string getCtrl_Enable();
-		int getCode();
+		std::string getCode();
 
 	private:
 
@@ -41,10 +42,7 @@ class Command
 		hexString DSBaseAddress;
 		WhichCommand Type;
 		void AddPrintLine(int Line, int Position);
-
-
-
-
+		int LastPos;
 };
 
 #endif
