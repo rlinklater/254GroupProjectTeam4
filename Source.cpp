@@ -12,6 +12,7 @@ hexString addressline(string s);//takes the string from the address column
 string rwline(string s);
 double ReadTime(string s);
 string GetTotalTime(double cmdTime, int cmdCount);
+int convertTime(string second);
 
 int main(int argc, char* argv[])
 {	//grabs "log.txt" from the current directory
@@ -178,5 +179,46 @@ hexString addressline(string s)
 	return x;
 }
 
+
+
 // Return Read or Write depending on current operation.
 string rwline(string s){return s.substr(118,2);}
+
+
+
+int convertTime(string secName)
+{
+	for (int i=21; i<29; i++)
+	{
+		if(secName[i] == 'n')
+		{
+			size_t pos = secName.find("n");
+			string number = secName.substr(0, pos);
+			//convert n to seconds now
+			int nanosecond = stoi(number);
+			int second = nanosecond/1000000000;
+			return second;
+		}
+		
+		else if(secName[i] == 'u')
+		{
+			size_t pos = secName.find("u");
+			string number = secName.substr(0, pos);
+			//convert u to seconds now
+			int microsecond = stoi(number);
+			int second = microsecond/1000000;
+			return second;
+		
+		}
+		else
+		{
+			size_t pos = secName.find("m");
+			string number = secName.substr(0, pos);
+			//convert m to seconds now
+			int millisecond = stoi(number);
+			int second = millisecond/1000000;
+			return second;
+		}
+					
+	}
+}
